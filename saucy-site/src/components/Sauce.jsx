@@ -10,20 +10,28 @@ function Sauce(props) {
     const clickLikes = () => {
         const newLikes = likes +1
         setLikes(newLikes)
-        // putLikes(newLikes)
+        putLikes(newLikes)
     }
 
-    //put likes to db
-    // async function putLikes(newLikes) {
-    //     await fetch(`http://localhost:3000/sauces/${props.sauce.id}`, {
-    //         method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         likes: newLikes
-    //     })
-    // })}
+    //update the likes attribute of this sauce in the database
+    const putLikes = async (newLikes) => {
+        await fetch(`http://localhost:3000/sauces/${props.sauce.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                likes: newLikes
+            })
+        })
+    }
+
+    //delete sauce from db
+    const clickDelete = async () => {
+        await fetch(`http://localhost:3000/sauces/${props.sauce.id}`, {
+            method: 'DELETE'
+        })
+    }
 
     //render the sauce details
     return (
@@ -32,7 +40,7 @@ function Sauce(props) {
         <img className="item-img" src={props.sauce.image} alt={props.sauce.name} />
         <h3>Likes: <span id="like-counter">{likes}</span></h3>
         <button id="like-btn" onClick={clickLikes}>Like</button>
-        <button id="delete-btn">Delete</button>
+        <button id="delete-btn" onClick={clickDelete}>Delete</button>
         <a href={'/edit-sauce/'+props.sauce.id} className="edit-sauce-btn">Edit this sauce</a>
         </div>
     );
