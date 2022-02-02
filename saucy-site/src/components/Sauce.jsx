@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 
 function Sauce(props) {
     //everything about one sauce
@@ -39,6 +40,7 @@ function Sauce(props) {
         <h2 id="item-name">{props.sauce.name}</h2>
         <img className="item-img" src={props.sauce.image} alt={props.sauce.name} />
         <h3>Likes: <span id="like-counter">{likes}</span></h3>
+        <Link to={`/sauces/${props.sauce.id}`}>View</Link>
         <button id="like-btn" onClick={clickLikes}>Like</button>
         <button id="delete-btn" onClick={clickDelete}>Delete</button>
         <a href={'/edit-sauce/'+props.sauce.id} className="edit-sauce-btn">Edit this sauce</a>
