@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import SauceList from './SauceList'
+import SauceDetail from './SauceDetail';
 import Header from './Header'
 import Footer from './Footer'
 import '../App.css'
+//importing Routes and Route components from react-router-dom
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   //name of the state,
@@ -30,10 +33,19 @@ function App() {
   }, [])
 
   //render a list of all sauces, using data from state
+
+  //Routes contains all Route components
+  //Each Route has a path (url) and element (component to render)
   return (
     <div className="App">
-      <Header/>
-      <SauceList sauces={sauces}/>
+      <Header sauces={sauces}/>
+
+        <Routes>
+          <Route path='/' element={<SauceList sauces={sauces}/>}/>
+          <Route path='/sauces' element={<SauceList sauces={sauces}/>}/>
+          <Route path='/sauces/:id' element={<SauceDetail/>}/>
+        </Routes>
+
       <Footer/>
     </div>
   );
