@@ -46,7 +46,7 @@ function App() {
           <Route path='/sauces/:id' element={<SauceDetail/>}/>
         </Routes>
 
-      <Footer/>
+      <Footer test={"test"}/>
     </div>
   );
 }
