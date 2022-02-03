@@ -3,6 +3,7 @@ import SauceList from './SauceList'
 import SauceDetail from './SauceDetail';
 import Header from './Header'
 import Footer from './Footer'
+import NewSauceForm from './NewSauceForm';
 import '../App.css'
 //importing Routes and Route components from react-router-dom
 import { Route, Routes } from 'react-router-dom';
@@ -44,6 +45,7 @@ function App() {
           <Route path='/' element={<SauceList sauces={sauces}/>}/>
           <Route path='/sauces' element={<SauceList sauces={sauces}/>}/>
           <Route path='/sauces/:id' element={<SauceDetail/>}/>
+          <Route path='/new' element={<NewSauceForm/>}/>
         </Routes>
 
       <Footer test={"test"}/>
