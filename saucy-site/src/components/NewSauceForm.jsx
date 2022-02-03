@@ -2,29 +2,50 @@ import React, { useState } from 'react';
 
 function NewSauceForm(props) {
 
-    //store the sauce name in state
-    const [nameState, setNameState]= useState("")
+    //set an initial state for the form
+    const initialState = {name:"", image:""}
+
+    //store the sauce form in state
+    const [formState, setFormState]= useState(initialState)
 
     //update name state when an input changes
     const handleChange = (e) => {
-        console.log(nameState)
-        setNameState(e.target.value)
+        setFormState({...formState, [e.target.id]: e.target.value})
     }
 
     //handle form submission
     const handleSubmit = (e) => {
         //prevent the page from refreshing on submit
         e.preventDefault()
-        console.log("Submitted")
-        setNameState("")
+
+        //create new sauce in database
+        postSauce()
+
+        //reset form
+        setFormState(initialState)
     }
+
+    //create new sauce in database
+    const postSauce = async () => {
+        await fetch(`http://localhost:3000/new-sauce`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: formState.name,
+                image: formState.image
+            })
+        })
+    }
+
 
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Hot Sauce Name:</label>
-            <input type="text" id="name" name="name" value={nameState} required onChange={handleChange}/><br/>
+            <input type="text" id="name" name="name" required onChange={handleChange}/><br/>
             <label htmlFor="image">Image URL:</label>
-            <input type="url" id="image" name="image" required/><br/>
+            <input type="url" id="image" name="image" required onChange={handleChange}/><br/>
             <button type="submit">Submit a new hot sauce</button>
         </form>
     );
